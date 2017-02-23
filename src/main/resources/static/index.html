@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FileInfo</title>
+    <style>input[type=text] {width:400px;}</style>
+</head>
+<body>
+
+<h1>File analyzer</h1>
+
+Enter a path to a file on your filesystem :<br/>
+<input type="text" name="path" id="pathInput"/>
+<button onclick="getfileInfo()">Send</button>
+
+<br/><br/>
+
+File info :<br/>
+<pre id="fileInfoDisplay">None yet.</pre>
+
+<script>
+    function getfileInfo() {
+        var pathInputElement = document.getElementById("pathInput");
+        var fileInfoDisplayElement = document.getElementById("fileInfoDisplay");
+
+        var path = pathInputElement.value;
+        var encodedPath = btoa(path);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/fileinfo/'+encodedPath, true);
+        xhr.onload = function(e) {
+            if (this.status == 200) {
+                var fileInfo = xhr.responseText;
+                fileInfoDisplayElement.innerHTML = JSON.stringify(JSON.parse(fileInfo), null, 2);
+            } else {
+                fileInfoDisplayElement.innerHTML = this.status;
+            }
+        };
+        xhr.send();
+    }
+</script>
+</body>
+</html>
