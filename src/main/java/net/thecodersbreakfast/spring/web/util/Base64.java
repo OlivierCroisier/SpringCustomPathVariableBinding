@@ -7,11 +7,10 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.PARAMETER})
-public @interface Base64PathVariable {
-    String value();
+public @interface Base64 {
+
     String charset() default "UTF-8";
     Decoder decoder() default Decoder.BASIC;
-    boolean required() default false;
 
     enum Decoder {
         BASIC,

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -33,7 +34,8 @@ public class Base64ControllerTest {
         // Call the base64 decoder service
         mvc.perform(get("/decode/" + encoded))
                 .andExpect(status().is2xxSuccessful())
-                .andExpect(message::equals);
+                .andDo(r -> System.out.println("RESULT: " + r.getResponse().getContentAsString()))
+                .andExpect(MockMvcResultMatchers.content().string(message));
     }
 
 }
