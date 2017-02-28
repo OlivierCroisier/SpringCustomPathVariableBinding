@@ -9,4 +9,5 @@ public class CustomPathVariableAnnotationApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CustomPathVariableAnnotationApplication.class, args);
 	}
+
 }
